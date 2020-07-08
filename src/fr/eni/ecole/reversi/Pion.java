@@ -4,11 +4,8 @@ public enum Pion {
     LIBRE,
     BLANC,
     NOIR;
-
     private int nombre = 2; // Valeur par défaut.
     private Joueur joueur;
-
-
 
     /**
      * @return Pion | Couleur du pion de la couleur opposée.
@@ -25,6 +22,9 @@ public enum Pion {
         this.autrePion().nombre -= inversions;
     }
 
+    /**
+     * Permet de sélectionner et identifier un joueur pour un pion.
+     */
     public void setJoueur() {
         System.out.println("Quel type de joueur souhaitez-vous pour les " + this.getSymbol() + " ?");
         System.out.println("Entrez un nom pour le joueur si vous souhaitez un joueur humain. Sinon, validez.");

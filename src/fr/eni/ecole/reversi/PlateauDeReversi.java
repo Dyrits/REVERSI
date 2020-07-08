@@ -7,6 +7,7 @@ public class PlateauDeReversi {
     static final int COTE = (int) Math.sqrt(CASES);
     Pion[][] plateau;
 
+
     public static void main(String[] args) {
         PlateauDeReversi reversi = new PlateauDeReversi();
         reversi.jouer();
