@@ -4,7 +4,7 @@
 
 ### Cursus
 ENI | La Programmation Orientée Objet (POO) avec Java  
-~ [Module 8 - Les énumérations](https://github.com/Dyrits/REVERSI/blob/master/Module%2008%20-%20Solution%20TP%20-%20Reversi%201.pdf)
+~ [Module 8 - Les énumérations](https://github.com/Dyrits/REVERSI/blob/master/Module%2008%20-%20Enonc%C3%A9%20TP%20-%20Reversi%201.pdf)
 
 ### Énoncés (par l'ENI)
 L’objectif est de créer un jeu de Reversi (également connu sous le nom d’Othello). Voici l’explication et les règles de ce jeu, d’après Wikipédia :
