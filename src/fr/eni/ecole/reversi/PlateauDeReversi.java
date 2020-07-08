@@ -21,10 +21,10 @@ public class PlateauDeReversi {
         for (Pion[] ligne : plateau) {
             Arrays.fill(ligne, Pion.LIBRE);
         }
-        plateau[4][4] = Pion.BLANC;
-        plateau[3][4] = Pion.NOIR;
-        plateau[4][3] = Pion.NOIR;
-        plateau[3][3] = Pion.BLANC;
+        plateau[COTE / 2][COTE / 2] = Pion.BLANC;
+        plateau[COTE / 2 - 1][COTE / 2] = Pion.NOIR;
+        plateau[COTE / 2][COTE / 2 - 1] = Pion.NOIR;
+        plateau[COTE / 2 - 1][COTE / 2 - 1] = Pion.BLANC;
     }
 
     private void jouer() {
@@ -59,7 +59,11 @@ public class PlateauDeReversi {
     private void afficher() {
         System.out.println(Pion.NOIR.getNombre() + " " + Pion.NOIR.getSymbol());
         System.out.println(Pion.BLANC.getNombre() + " " + Pion.BLANC.getSymbol());
-        System.out.println("   1  2  3  4  5  6  7  8");
+        System.out.print("   ");
+        for (int numerotation = 1; numerotation < COTE + 1; numerotation ++) {
+            System.out.print(numerotation + "  ");
+        }
+        System.out.println();
         int numerotation = 0;
         for (Pion[] ligne : this.plateau) {
             System.out.print(++ numerotation);
@@ -95,11 +99,11 @@ public class PlateauDeReversi {
                         for (int inversion = 1; inversion < axeInversions + 1; inversion++) {
                             this.plateau[ligne + axeLigne * inversion][colonne + axeColonne * inversion] = couleur;
                         }
-                        couleur.gagne(axeInversions);
                     }
                 }
             }
         }
+        if (inverser) { couleur.gagne(inversions); }
         return inversions;
     }
 
