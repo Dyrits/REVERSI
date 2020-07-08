@@ -1,13 +1,11 @@
 package fr.eni.ecole.reversi;
 
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class PlateauDeReversi {
-    private static final int CASES =  64;
-    private static final int COTE = (int) Math.sqrt(CASES);
-    private Scanner console = new Scanner(System.in);
-    private Pion[][] plateau;
+    static final int CASES =  64;
+    static final int COTE = (int) Math.sqrt(CASES);
+    Pion[][] plateau;
 
     public static void main(String[] args) {
         PlateauDeReversi reversi = new PlateauDeReversi();
@@ -29,23 +27,29 @@ public class PlateauDeReversi {
     }
 
     private void jouer() {
+        Pion.NOIR.setJoueur();
+        Pion.BLANC.setJoueur();
         Pion joueurActif = Pion.NOIR;
+        System.out.println();
+        System.out.println("REVERSI - " + Pion.NOIR.getJoueur().getNom() + " VS " + Pion.BLANC.getJoueur().getNom());
+        this.afficher();
+        System.out.println();
         do {
-            clearScreen();
-            this.afficher();
             if (!peutJouer(joueurActif)) {
                 if (!peutJouer(joueurActif.autrePion())) { continue; }
                 System.out.println(joueurActif.getSymbol() + " n'a aucune position où poser ses pions. Il passe son tour.");
                 joueurActif = joueurActif.autrePion();
             }
-            System.out.println("Joueur actif : " + joueurActif.getSymbol());
+            System.out.println("Joueur actif : " + joueurActif.getJoueur().getNom()  + " | " + joueurActif.getSymbol());
             boolean aJouer = poser(joueurActif);
             while (!aJouer) { aJouer = poser(joueurActif); }
+            this.afficher();
             joueurActif = joueurActif.autrePion();
+            System.out.println();
             } while (peutJouer(joueurActif) && peutJouer(joueurActif.autrePion()));
-        clearScreen();
+        Outils.clearScreen();
         System.out.println("Aucune position n'est disponible. La partie est terminée.");
-        this.afficher();
+        System.out.println((Pion.NOIR.getNombre() > Pion.BLANC.getNombre() ? Pion.NOIR.getJoueur().getNom() : Pion.BLANC.getJoueur().getNom()) + " a gagné.");
     }
 
     /**
@@ -76,7 +80,7 @@ public class PlateauDeReversi {
      * @param inverser boolean | Inverse les pions identifiés si "true".
      * @return int | Nombre d'inversions possibles.
      */
-    private int inverser(Pion couleur, int ligne, int colonne, boolean inverser) {
+    protected int inverser(Pion couleur, int ligne, int colonne, boolean inverser) {
         int inversions = 0;
         int axeInversions;
         if (this.plateau[ligne][colonne] == Pion.LIBRE) {
@@ -98,7 +102,7 @@ public class PlateauDeReversi {
         return inversions;
     }
 
-    private int inverser(Pion couleur, int ligne, int colonne) {
+    int inverser(Pion couleur, int ligne, int colonne) {
         return inverser(couleur, ligne, colonne, false);
     }
 
@@ -116,6 +120,7 @@ public class PlateauDeReversi {
     private int testerAxe(Pion couleur, int ligne, int colonne, int axeLigne, int axeColonne, int inversions) {
         ligne += axeLigne;
         colonne += axeColonne;
+        if (ligne < 0 || ligne > 7 || colonne < 0 || colonne > 7) { return 0; }
         Pion voisin = this.plateau[ligne][colonne];
         if (voisin == Pion.LIBRE) { return 0; }
         if (voisin == couleur.autrePion()) {
@@ -135,7 +140,6 @@ public class PlateauDeReversi {
      * @return boolean | "true" s'il reste des mouvements possible, sinon "false".
      */
     private boolean peutJouer(Pion couleur) {
-        System.out.println("Test");
         for (int ligne = 0; ligne < COTE; ligne ++) {
             for (int colonne = 0; colonne < COTE; colonne ++) {
                 if (inverser(couleur, ligne, colonne) > 0) { return true; }
@@ -161,42 +165,14 @@ public class PlateauDeReversi {
     }
 
     private boolean poser(Pion couleur) {
-        int ligne = saisirPosition("Ligne : ");
-        int colonne = saisirPosition("Colonne : ");
-        return poser(couleur, ligne, colonne);
-    }
-
-    /**
-     * Permet la saisie d'une position (ligne ou colonne).
-     *
-     * @param string String | Message à afficher.
-     * @return int | Index de la position.
-     */
-    private int saisirPosition(String string) {
-        boolean invalidite = true;
-        int position = 0;
-        do {
-            try {
-                System.out.print(string);
-                position = console.nextInt();
-                invalidite = position < 1 || position > COTE;
-                if (invalidite) {
-                    System.out.println("Le numéro saisie est invalide. Veuillez-réessayer.");
-                }
-            } catch (Exception exception) {
-                System.out.println("La saisie est invalide. Veuillez-ré-essayez.");
-            } finally {
-                console.nextLine();
-            }
-        } while (invalidite);
-        return position - 1;
-    }
-
-    /**
-     * Permet de remonter le contenu de la console, pour la vider.
-     */
-    public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        int[] positions = couleur.getJoueur().jouer(this, couleur);
+        System.out.println(
+                couleur.getJoueur().getNom() +
+                " a sélectionné la position (ligne | colonne) suivante: " +
+                (positions[0] + 1) +
+                " | " +
+                (positions[1] +1)
+        );
+        return poser(couleur, positions[0], positions[1]);
     }
 }

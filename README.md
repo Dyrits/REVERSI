@@ -39,7 +39,7 @@ que [reversi.fr](http://reversi.fr/).
 Ce projet a été construit à partir de zéro en suivant des instructions spécifiques.
 
 ### Statut
-Reversi 1 - En cours (V0.7)
+Reversi 1 - Terminé
 
 #### Dernière mise à jour
 08/07/2020  
