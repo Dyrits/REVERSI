@@ -69,8 +69,6 @@ public class Plateau <T extends Affichage> {
         plateau.set(this.getCellNumber(ligne, colonne), valeur);
     }
 
-    public int getLignes() { return lignes; }
-
     /**
      * Initialise le nombre de lignes à 1 ou à la valeur entrée en paramètre.
      *
@@ -88,10 +86,6 @@ public class Plateau <T extends Affichage> {
     public void setColonnes(int colonnes) {
         this.colonnes = Math.max(colonnes, 1);
     }
-
-    public int getColonnes() { return colonnes; }
-
-    public List<T> getPlateau() { return plateau; }
 
     /**
      * Initialise le plateau et la valeur de ses cases par défaut.
