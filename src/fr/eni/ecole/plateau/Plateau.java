@@ -8,6 +8,7 @@ public class Plateau <T extends Affichage> {
     private List<T> plateau;
 
     /**
+     * Constructeur.
      * @param lignes int | Nombre de lignes
      * @param colonnes int | Nombre de colonnes
      * @param initialisation T | Valeur par défaut pour chaque cases du tableau.
@@ -32,7 +33,7 @@ public class Plateau <T extends Affichage> {
             System.out.print(++ numerotation);
             System.out.print("  ");
             for (int colonne = 0; colonne < this.colonnes; colonne ++) {
-                System.out.print(this.getCell(ligne, colonne));
+                System.out.print(this.getCell(ligne, colonne).getSymbole());
                 System.out.print("  ");
             }
             System.out.println();
@@ -71,7 +72,6 @@ public class Plateau <T extends Affichage> {
 
     /**
      * Initialise le nombre de lignes à 1 ou à la valeur entrée en paramètre.
-     *
      * @param lignes int | Nombre de lignes.
      */
     public void setLignes(int lignes) {
@@ -80,7 +80,6 @@ public class Plateau <T extends Affichage> {
 
     /**
      * Initialise le nombre de colonnes à 1 ou à la valeur entrée en paramètre.
-     *
      * @param colonnes int | Nombre de colonnes.
      */
     public void setColonnes(int colonnes) {
@@ -89,7 +88,6 @@ public class Plateau <T extends Affichage> {
 
     /**
      * Initialise le plateau et la valeur de ses cases par défaut.
-     *
      * @param lignes int | Nombre de lignes.
      * @param colonnes int | Nombre de colonnes.
      * @param initialisation T | Valeur par défaut.

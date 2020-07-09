@@ -39,11 +39,6 @@ public enum Pion implements Affichage {
         else { this.joueur = new JoueurIA(); }
     }
 
-    @Override
-    public String toString() {
-        return String.valueOf(this.getSymbole());
-    }
-
 
     // GETTERS & SETTERS
 

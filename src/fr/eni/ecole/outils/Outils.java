@@ -7,7 +7,6 @@ public class Outils {
 
     /**
      * Permet la saisie d'une position (ligne ou colonne).
-     *
      * @param string String | Message à afficher.
      * @return int | Index de la position.
      */

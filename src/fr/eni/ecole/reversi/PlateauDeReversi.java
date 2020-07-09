@@ -14,7 +14,7 @@ public class PlateauDeReversi extends Plateau<Pion> {
     }
 
     /**
-     * Constructeur du plateau de jeu.
+     * Constructeur.
      */
     private PlateauDeReversi() {
         super(COTE, COTE, Pion.LIBRE);

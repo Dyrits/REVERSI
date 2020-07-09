@@ -10,7 +10,6 @@ public class JoueurHumain implements Joueur {
 
     /**
      * Constructeur
-     *
      * @param nom String | Nom du joueur.
      */
     public JoueurHumain(String nom) {
@@ -36,9 +35,6 @@ public class JoueurHumain implements Joueur {
     public int[] jouer(PlateauDeReversi reversi, Pion couleur) {
         return this.jouer();
     }
-
-
-
 
 
     // GETTERS AND SETTERS
