@@ -1,11 +1,11 @@
 package fr.eni.ecole.reversi;
 
-import java.util.Arrays;
+import fr.eni.ecole.outils.Outils;
+import fr.eni.ecole.plateau.Plateau;
 
-public class PlateauDeReversi {
-    static final int CASES =  64;
-    static final int COTE = (int) Math.sqrt(CASES);
-    Pion[][] plateau;
+public class PlateauDeReversi extends Plateau<Pion> {
+    static final int CELLULES =  64;
+    public static final int COTE = (int) Math.sqrt(CELLULES);
 
 
     public static void main(String[] args) {
@@ -17,14 +17,11 @@ public class PlateauDeReversi {
      * Constructeur du plateau de jeu.
      */
     private PlateauDeReversi() {
-        this.plateau = new Pion[COTE][COTE];
-        for (Pion[] ligne : plateau) {
-            Arrays.fill(ligne, Pion.LIBRE);
-        }
-        plateau[COTE / 2][COTE / 2] = Pion.BLANC;
-        plateau[COTE / 2 - 1][COTE / 2] = Pion.NOIR;
-        plateau[COTE / 2][COTE / 2 - 1] = Pion.NOIR;
-        plateau[COTE / 2 - 1][COTE / 2 - 1] = Pion.BLANC;
+        super(COTE, COTE, Pion.LIBRE);
+        this.setCell(COTE / 2, COTE / 2, Pion.BLANC);
+        this.setCell(COTE / 2 - 1, COTE / 2, Pion.NOIR);
+        this.setCell(COTE / 2, COTE / 2 - 1, Pion.NOIR);
+        this.setCell(COTE / 2 - 1, COTE / 2 - 1, Pion.BLANC);
     }
 
     private void jouer() {
@@ -38,10 +35,10 @@ public class PlateauDeReversi {
         do {
             if (!peutJouer(joueurActif)) {
                 if (!peutJouer(joueurActif.autrePion())) { continue; }
-                System.out.println(joueurActif.getSymbol() + " n'a aucune position où poser ses pions. Il passe son tour.");
+                System.out.println(joueurActif.getSymbole() + " n'a aucune position où poser ses pions. Il passe son tour.");
                 joueurActif = joueurActif.autrePion();
             }
-            System.out.println("Joueur actif : " + joueurActif.getJoueur().getNom()  + " | " + joueurActif.getSymbol());
+            System.out.println("Joueur actif : " + joueurActif.getJoueur().getNom()  + " | " + joueurActif.getSymbole());
             boolean aJouer = poser(joueurActif);
             while (!aJouer) { aJouer = poser(joueurActif); }
             this.afficher();
@@ -56,24 +53,11 @@ public class PlateauDeReversi {
     /**
      * Affiche les scores et le plateau de jeu.
      */
-    private void afficher() {
-        System.out.println(Pion.NOIR.getNombre() + " " + Pion.NOIR.getSymbol());
-        System.out.println(Pion.BLANC.getNombre() + " " + Pion.BLANC.getSymbol());
-        System.out.print("   ");
-        for (int numerotation = 1; numerotation < COTE + 1; numerotation ++) {
-            System.out.print(numerotation + "  ");
-        }
-        System.out.println();
-        int numerotation = 0;
-        for (Pion[] ligne : this.plateau) {
-            System.out.print(++ numerotation);
-            System.out.print("  ");
-            for (int colonne = 0; colonne < COTE; colonne ++) {
-                System.out.print(ligne[colonne].getSymbol());
-                System.out.print("  ");
-            }
-            System.out.println();
-        }
+    @Override
+    protected void afficher() {
+        System.out.println(Pion.NOIR.getNombre() + " " + Pion.NOIR.getSymbole());
+        System.out.println(Pion.BLANC.getNombre() + " " + Pion.BLANC.getSymbole());
+        super.afficher();
     }
 
     /**
@@ -88,16 +72,16 @@ public class PlateauDeReversi {
     protected int inverser(Pion couleur, int ligne, int colonne, boolean inverser) {
         int inversions = 0;
         int axeInversions;
-        if (this.plateau[ligne][colonne] == Pion.LIBRE) {
+        if (this.getCell(ligne, colonne) == Pion.LIBRE) {
             for (int axeLigne = ligne > 0 ? -1 : 0; axeLigne < (ligne + 1 == COTE ? 1 : 2); axeLigne ++) {
                 for (int axeColonne = colonne > 0 ? - 1: 0; axeColonne < (colonne + 1 == COTE ? 1 : 2); axeColonne ++) {
                     if (axeLigne == 0 && axeColonne == 0) { continue; } // Correspond à la case actuelle.
                     axeInversions = testerAxe(couleur, ligne, colonne, axeLigne, axeColonne);
                     inversions += axeInversions;
                     if (inverser && axeInversions != 0) {
-                        this.plateau[ligne][colonne] = couleur;
+                        this.setCell(ligne, colonne, couleur);
                         for (int inversion = 1; inversion < axeInversions + 1; inversion++) {
-                            this.plateau[ligne + axeLigne * inversion][colonne + axeColonne * inversion] = couleur;
+                            this.setCell(ligne + axeLigne * inversion, colonne + axeColonne * inversion, couleur);
                         }
                     }
                 }
@@ -107,7 +91,13 @@ public class PlateauDeReversi {
         return inversions;
     }
 
-    int inverser(Pion couleur, int ligne, int colonne) {
+    public int inverser(Pion couleur, int ligne, int colonne) {
+        return inverser(couleur, ligne, colonne, false);
+    }
+
+    int inverser(Pion couleur, int cellule) {
+        int ligne = cellule / COTE;
+        int colonne = cellule % COTE;
         return inverser(couleur, ligne, colonne, false);
     }
 
@@ -125,8 +115,8 @@ public class PlateauDeReversi {
     private int testerAxe(Pion couleur, int ligne, int colonne, int axeLigne, int axeColonne, int inversions) {
         ligne += axeLigne;
         colonne += axeColonne;
-        if (ligne < 0 || ligne > 7 || colonne < 0 || colonne > 7) { return 0; }
-        Pion voisin = this.plateau[ligne][colonne];
+        if (ligne < 0 || ligne > COTE - 1 || colonne < 0 || colonne > COTE - 1) { return 0; }
+        Pion voisin = this.getCell(ligne, colonne);
         if (voisin == Pion.LIBRE) { return 0; }
         if (voisin == couleur.autrePion()) {
             inversions = testerAxe(couleur, ligne, colonne, axeLigne, axeColonne, inversions + 1);
@@ -145,10 +135,8 @@ public class PlateauDeReversi {
      * @return boolean | "true" s'il reste des mouvements possible, sinon "false".
      */
     private boolean peutJouer(Pion couleur) {
-        for (int ligne = 0; ligne < COTE; ligne ++) {
-            for (int colonne = 0; colonne < COTE; colonne ++) {
-                if (inverser(couleur, ligne, colonne) > 0) { return true; }
-            }
+        for (int cellule = 0; cellule < CELLULES; cellule ++) {
+                if (inverser(couleur, cellule) > 0) { return true; }
         }
         return false;
     }
@@ -161,7 +149,7 @@ public class PlateauDeReversi {
      * @return boolean | "true" si la pose du pion a été effectuée correctement, sinon, "false".
      */
     private boolean poser(Pion couleur, int ligne, int colonne) {
-        if (this.plateau[ligne][colonne] != Pion.LIBRE || inverser(couleur, ligne, colonne) == 0) {
+        if (this.getCell(ligne, colonne) != Pion.LIBRE || inverser(couleur, ligne, colonne) == 0) {
             System.out.println("La position actuelle est invalide. Veuillez saisir une autre position.");
             return false;
         }

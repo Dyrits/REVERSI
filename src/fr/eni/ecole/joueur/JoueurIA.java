@@ -1,4 +1,8 @@
-package fr.eni.ecole.reversi;
+package fr.eni.ecole.joueur;
+
+import fr.eni.ecole.joueur.Joueur;
+import fr.eni.ecole.reversi.Pion;
+import fr.eni.ecole.reversi.PlateauDeReversi;
 
 import java.util.Random;
 
@@ -19,7 +23,7 @@ public class JoueurIA implements Joueur {
         int maximum = 0;
         for (int ligne = 0; ligne < PlateauDeReversi.COTE; ligne ++) {
             for (int colonne = 0; colonne < PlateauDeReversi.COTE; colonne++) {
-                if (reversi.plateau[ligne][colonne] != Pion.LIBRE) { continue; }
+                if (reversi.getCell(ligne, colonne) != Pion.LIBRE) { continue; }
                 int inversions = reversi.inverser(couleur, ligne, colonne);
                 if (inversions > maximum) {
                     maximum = inversions;

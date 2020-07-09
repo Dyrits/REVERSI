@@ -1,5 +1,9 @@
-package fr.eni.ecole.reversi;
+package fr.eni.ecole.joueur;
 
+
+import fr.eni.ecole.outils.Outils;
+import fr.eni.ecole.reversi.Pion;
+import fr.eni.ecole.reversi.PlateauDeReversi;
 
 public class JoueurHumain implements Joueur {
     String nom;

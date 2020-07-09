@@ -5,8 +5,13 @@
 ### Cursus
 ENI | La Programmation Orientée Objet (POO) avec Java  
 ~ [Module 8 - Les énumérations](https://github.com/Dyrits/REVERSI/blob/master/Module%2008%20-%20Enonc%C3%A9%20TP%20-%20Reversi%201.pdf)
+- [Module 9 - La généricité]()
 
 ### Énoncés (par l'ENI)
+
+<details markdown="block">
+<summary>Partie 1</summary>  
+
 L’objectif est de créer un jeu de Reversi (également connu sous le nom d’Othello). Voici l’explication et les règles de ce jeu, d’après Wikipédia :
 
 *Il se joue sur un plateau unicolore de 64 cases, 8 sur 8. Les joueurs disposent de 64 pions bicolores, noirs d'un côté et blancs de l'autre. En début de partie, quatre pions sont déjà placés au centre du plateau dans la position suivante :*
@@ -30,7 +35,19 @@ L’objectif est de créer un jeu de Reversi (également connu sous le nom d’O
 Pour vous familiariser avec ce jeu, vous pouvez tester une version pour jouer en ligne telle
 que [reversi.fr](http://reversi.fr/).
 
-> Plus de détails sont disponibles dans le fichier d'énoncé au format PDF.
+</details>
+
+<details markdown="block">
+<summary>Partie 2</summary>  
+
+Il existe une multitude de jeux se jouant sur un plateau de jeu carré ou rectangulaire :
+
+Reversi, dames, bataille navale, échecs, morpion, Puissance 4, démineur… Il est possible de créer une classe Plateau qui serait utilisée pour tous ces jeux. Ainsi, celle-ci mutualiserait les actions communes à tous ces plateaux de jeu (affichage, modification d’une case et consultation d’une case). Ce qui change entre tous ces plateaux de jeu, ce sont les pions qui sont posés sur les cases. Cela sera donc paramétré par un type générique.
+
+</details>
+
+
+> Plus de détails sont disponibles dans les fichiers au format PDF correspondant à chaque énoncé.
 
 ### Technologie principale
 - Java
@@ -38,9 +55,11 @@ que [reversi.fr](http://reversi.fr/).
 ### Détails | Commentaires
 Ce projet a été construit à partir de zéro en suivant des instructions spécifiques.
 
+
 ### Statut
-Reversi 1 - Terminé
+Reversi 1 - Terminé  
+Reversi 2 - Terminé  
 
 #### Dernière mise à jour
-08/07/2020  
-(README | 08/07/2020)
+09/07/2020  
+(README | 09/07/2020)

@@ -1,9 +1,9 @@
-package fr.eni.ecole.reversi;
+package fr.eni.ecole.outils;
 
 import java.util.Scanner;
 
 public class Outils {
-    static Scanner console = new Scanner(System.in);
+    public static Scanner console = new Scanner(System.in);
 
     /**
      * Permet la saisie d'une position (ligne ou colonne).
@@ -11,7 +11,7 @@ public class Outils {
      * @param string String | Message à afficher.
      * @return int | Index de la position.
      */
-    static int saisirPosition(String string, int maximum) {
+    public static int saisirPosition(String string, int maximum) {
         boolean invalidite = true;
         int position = 0;
         do {
@@ -34,7 +34,7 @@ public class Outils {
     /**
      * Permet de remonter le contenu de la console, pour la vider.
      */
-    static void clearScreen() {
+    public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }

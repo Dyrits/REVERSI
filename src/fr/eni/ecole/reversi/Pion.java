@@ -1,6 +1,12 @@
 package fr.eni.ecole.reversi;
 
-public enum Pion {
+import fr.eni.ecole.joueur.Joueur;
+import fr.eni.ecole.joueur.JoueurHumain;
+import fr.eni.ecole.joueur.JoueurIA;
+import fr.eni.ecole.outils.Outils;
+import fr.eni.ecole.plateau.Affichage;
+
+public enum Pion implements Affichage {
     LIBRE,
     BLANC,
     NOIR;
@@ -26,11 +32,16 @@ public enum Pion {
      * Permet de sélectionner et identifier un joueur pour un pion.
      */
     public void setJoueur() {
-        System.out.println("Quel type de joueur souhaitez-vous pour les " + this.getSymbol() + " ?");
+        System.out.println("Quel type de joueur souhaitez-vous pour les " + this.getSymbole() + " ?");
         System.out.println("Entrez un nom pour le joueur si vous souhaitez un joueur humain. Sinon, validez.");
         String nom = Outils.console.nextLine();
         if (nom.length() > 0) { this.joueur = new JoueurHumain(nom); }
         else { this.joueur = new JoueurIA(); }
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(this.getSymbole());
     }
 
 
@@ -41,7 +52,8 @@ public enum Pion {
     /**
      * @return char | Symbole associé à la couleur.
      */
-    public char getSymbol() {
+    @Override
+    public char getSymbole() {
         return this == LIBRE ? '·' : this == NOIR ? '●' : 'o';
     }
 
