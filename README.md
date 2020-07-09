@@ -4,7 +4,7 @@
 
 ### Cursus
 ENI | La Programmation Orientée Objet (POO) avec Java  
-~ [Module 8 - Les énumérations](https://github.com/Dyrits/REVERSI/blob/master/Module%2008%20-%20Enonc%C3%A9%20TP%20-%20Reversi%201.pdf)
+~ [Module 8 - Les énumérations](https://github.com/Dyrits/REVERSI/blob/master/Module%2008%20-%20Enonc%C3%A9%20TP%20-%20Reversi%201.pdf)  
 ~ [Module 9 - La généricité](https://github.com/Dyrits/REVERSI/blob/master/Module%2009%20-%20Enonc%C3%A9%20TP03%20-%20Reversi%202.pdf)
 
 ### Énoncés (par l'ENI)
